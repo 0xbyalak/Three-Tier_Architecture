@@ -1,5 +1,3 @@
-# ISP Network IP Planning & Addressing Scheme
-
 ## 1. Network Overview
 - **Total Users**: 1000 customers (PPPoE + Hotspot)
 - **Segmentation**: Per-kecamatan dengan VLAN
