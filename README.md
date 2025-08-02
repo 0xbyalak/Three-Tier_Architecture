@@ -11,25 +11,15 @@ Dokumentasi ini merupakan bagian dari portofolio project simulasi infrastruktur 
 - **Tools:** GNS3 (Router Simulation), VMware (Server Deployment)
 
 
-## Network Topology Overview
+## Network Topology 
 
-```
-             [Internet]
-                 |
-          [Core Router R1]
-         /        |        \
-     R2           R3         R4
-  (Customer)    (Servers)    (VPN)
-     |             |           |
- [Switches]    [NMS, AAA,    Remote Sites
-  /Hosts]       Billing]
-```
+<img width="1177" height="610" alt="image" src="https://github.com/user-attachments/assets/32152a02-0684-4f7a-9c11-f8e44c5d621e" />
 
 
 ## Three-Tier Architecture
 
 ### 1. **Core Layer (R1 - Core Router)**
-- BGP peering ke 2 upstream ISP
+- BGP peering ke upstream ISP
 - OSPF Backbone Area 0
 - Firewall + NAT + Traffic Engineering
 - VPN Termination Point (R4 link)
@@ -65,7 +55,7 @@ Dokumentasi ini merupakan bagian dari portofolio project simulasi infrastruktur 
 ### GNS3 (Router Simulation)
 1. Import MikroTik CHR image ke GNS3.
 2. Buat topologi Core (R1), Distribution (R2, R3), VPN Router (R4).
-3. Konfigurasikan BGP peering di R1 ke 2 simulated ISP Cloud.
+3. Konfigurasikan BGP peering di R1 simulated ISP Cloud.
 4. Konfigurasikan OSPF Backbone (R1-R2-R3-R4) Area 0.
 5. Buat VLAN interface di R2 untuk PPPoE dan Hotspot pelanggan.
 6. Implementasi Queue Tree di R2 untuk bandwidth shaping.
