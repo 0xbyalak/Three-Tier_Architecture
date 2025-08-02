@@ -1,5 +1,3 @@
-# ISP Network IP Planning & Addressing Scheme
-
 ## 1. Network Overview
 - **Total Users**: 1000 customers (PPPoE + Hotspot)
 - **Segmentation**: Per-kecamatan dengan VLAN
@@ -9,20 +7,22 @@
 
 ## 2. IP Address Allocation Structure
 
-### 2.1 Core Infrastructure (R1 - Core Router)
+### 2.1 R1 - Core Router
 ```
 Network: 10.0.0.0/22 (Private Internal - 1022 hosts)
-Public: 203.128.10.0/29 (Example ISP Block - 6 usable)
+Public: 203.128.10.0/29 (ISP Block - 6 usable)
 
 Core Links:
 - R1-Internet: 203.128.10.1/30 (WAN)
 - R1-R2 Link: 10.0.0.0/30
-- R1-R3 Link: 10.0.0.4/30
-- R1-R4 Link: 10.0.0.8/30
-- Loopback R1: 10.0.0.1/32
+- R2-R3 Link: 10.0.0.4/30
+- R3-R1 Link: 10.0.0.8/30
+- Loopback R1: 10.255.255.1/32
+- Loopback R2: 10.255.255.2/32
+- Loopback R3: 10.255.255.3/32
 ```
 
-### 2.2 Customer Networks (R2 - Distribution Router)
+### 2.2 R2 - Distribution Router
 ```
 Customer Pool: 192.168.0.0/20 (Optimized for 4094 hosts total)
 Subnet per Kecamatan: /23 (510 hosts per area)
@@ -37,12 +37,12 @@ VLAN 104: Kecamatan E - 192.168.8.0/23    (192.168.8.1 - 192.168.9.254)
 
 #### PPPoE Pool Configuration
 ```
-PPPoE Pools per Kecamatan (Efisien untuk 200 users):
-- Pool A (VLAN 100): 192.168.0.10 - 192.168.0.210 (200 users)
-- Pool B (VLAN 101): 192.168.2.10 - 192.168.2.210 (200 users)
-- Pool C (VLAN 102): 192.168.4.10 - 192.168.4.210 (200 users)
-- Pool D (VLAN 103): 192.168.6.10 - 192.168.6.210 (200 users)
-- Pool E (VLAN 104): 192.168.8.10 - 192.168.8.210 (200 users)
+PPPoE Pools per Kecamatan (200 users):
+- Pool A (VLAN 100): 192.168.0.10 - 192.168.0.210 
+- Pool B (VLAN 101): 192.168.2.10 - 192.168.2.210 
+- Pool C (VLAN 102): 192.168.4.10 - 192.168.4.210 
+- Pool D (VLAN 103): 192.168.6.10 - 192.168.6.210 
+- Pool E (VLAN 104): 192.168.8.10 - 192.168.8.210
 ```
 
 #### Hotspot Pool Configuration
@@ -55,7 +55,7 @@ Hotspot Pools per Kecamatan (Subnet terpisah untuk isolasi):
 - Hotspot E: 192.168.9.0/25 (126 users) - dalam range VLAN 104
 ```
 
-### 2.3 Server Network (R3 - Server Distribution)
+### 2.3 R3 - Distribution Router
 ```
 Server Network: 10.1.0.0/24 (Optimized for 254 hosts)
 
@@ -69,19 +69,11 @@ VLAN 204: Management       - 10.1.2.0/26 (62 hosts)
 
 #### Critical Servers
 ```
-NMS Server:        10.1.0.10/24
-AAA/Radius:        10.1.0.11/24
-Billing Server:    10.1.0.12/24
-DNS Primary:       10.1.0.13/24
-DNS Secondary:     10.1.0.14/24
-DHCP Server:       10.1.0.15/24
-File Server:       10.1.0.16/24
-Backup Server:     10.1.0.17/24
-Syslog Server:     10.1.0.18/24
-NTP Server:        10.1.0.19/24
+NMS Server          :        10.1.0.10/24
+AAA & Billing server:        10.1.0.11/24
 ```
 
-### 2.4 VPN Network (R4 - VPN Gateway)
+### 2.4 R4 - VPN Gateway
 ```
 VPN Network: 172.16.0.0/24 (Optimized untuk 254 hosts)
 
@@ -202,24 +194,3 @@ SNMP Community:
 Syslog Server: 10.10.1.18
 NTP Server: 10.10.1.19
 ```
-
-## 7. Implementation Notes
-
-### 7.1 Scalability Considerations
-- Setiap kecamatan dapat menampung hingga 510 hosts (realistic untuk growth)
-- VPN network dapat mengakomodasi 30 cabang + 126 remote users
-- Server network efisien dengan departmental segmentation
-- Management network terpisah untuk security dengan kapasitas yang cukup
-- Total IP usage: ~2000 addresses (efficient untuk ISP kecil)
-
-### 7.2 Redundancy Planning
-- Dual-homed internet connections
-- Server clustering for critical services
-- Backup power and cooling systems
-- Configuration backups automated
-
-### 7.3 Documentation Standards
-- All changes logged in change management
-- Network diagrams updated real-time
-- IP allocation tracked in IPAM system
-- Bandwidth utilization monitored 24/7
