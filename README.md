@@ -48,7 +48,7 @@ Dokumentasi ini merupakan bagian dari portofolio project simulasi infrastruktur 
 | VPN Network | 172.16.0.0/16 | Site-to-site & remote users |
 | Management VLAN | 10.254.0.0/24 | Device OOB Management |
 
-**Lebih jelasnya ada di `[IP Plan]{sdfasdfsdgsadsdfasdfsadf}`**
+**Lebih jelasnya ada di [IP Planning](https://github.com/0xbyalak/Three-Tier_Architecture/blob/9e5a4d0868f7020066e3f15ea5f9f5797e7f153f/ip_planning.md)**
 
 ## GNS3 & VMware Simulation Guide
 
