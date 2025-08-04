@@ -116,7 +116,6 @@ Management VLAN: 10.254.0.0/26 (62 addresses - all network devices)
 VLAN 999: Dedicated management untuk monitoring dan maintenance
 
 Core Device Management:
-- RA Management: 10.254.0.1/26
 - R1 Management: 10.254.0.2/26
 - R2 Management: 10.254.0.3/26
 - R3 Management: 10.254.0.4/26
@@ -127,7 +126,6 @@ Switch Management:
 - SW3 Management: 10.254.0.12/26
 
 Server Management:
-- Server1 (RA): Management via 172.16.0.10
 - Main Server (R3): Management via 10.1.0.2
 - PC_Admin: Management station at 10.1.0.100
 ```
